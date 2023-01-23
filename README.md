@@ -27,6 +27,7 @@ Gestionador Medico
 ADICIONALES...
 
 INTENTOS PERMITIDOS
+
 ![image](https://user-images.githubusercontent.com/96129728/214145861-518fde5a-acc2-48d3-850b-003ee1d847f1.png)
 
 INDICADOR DE USUARIO YA REGISTRADO
