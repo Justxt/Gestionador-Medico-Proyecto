@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 
 struct user {
     char username[20];
@@ -38,6 +39,7 @@ int main() {
 
     printf("//////////////////////////////////////\n");
     bienvenida();
+    tiempoActual();
     printf("//////////////////////////////////////\n");
 
 
@@ -45,7 +47,8 @@ int main() {
 
         printf("1. Iniciar Sesion\n");
         printf("2. Registrarse\n");
-        printf("3. Salir\n");
+        printf("3. Informacion de contacto\n");
+        printf("4. Salir\n");
         printf("Escoja una opcion: ");
         scanf("%d", &choice);
 
@@ -57,6 +60,11 @@ int main() {
         } else if (choice == 2) {
             registerUser();
         } else if (choice == 3) {
+            printf("//////////////////////////////////////\n");
+            printf("Nuestros telefonos: 025456544 - 0987456321\n");
+            printf("Nuestro correo: hospital@potitos.com\n");
+            printf("Nuestra direccion: Av. 9 de Octubre y Av. 10 de Agosto\n");
+        } else if (choice == 4) {
             break;
         } else {
             printf("Opcion no disponible.\n");
@@ -74,53 +82,75 @@ void bienvenida() {
     for (i = 0; i < strlen(texto); i++) {
         printf("%c", texto[i]);
         fflush(stdout);
-        usleep(100000); // espera 0.1 segundos
+        usleep(90000); // espera 0.1 segundos
+    }
+    printf("\n");
+}
+void tiempoActual() {
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    printf("Fecha y Hora Actual: %02d/%02d/%d %02d:%02d:%02d\n", tm.
+    tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
+}
+void despedida() {
+    int i;
+    char* texto = "GRACIAS POR USAR POTITOS HOSPITAL!\nPARA MAS INFORMACION COMUNICARSE A NUESTROS NUMEROS: 025456544 - 0987456321\nUSAR MASCARILLA SALVA VIDAS!\nHASTA PRONTO!";
+
+    for (i = 0; i < strlen(texto); i++) {
+        printf("%c", texto[i]);
+        fflush(stdout);
+        usleep(10000); // espera 0.1 segundos
     }
     printf("\n");
 }
 
-    void showUserMenu(int user_index) {
-        int choice;
+void showUserMenu(int user_index) {
+    int choice;
 
-        while (1) {
+    while (1) {
+        printf("//////////////////////////////////////\n");
+        printf("1. Revisar informacion personal\n");
+        printf("2. Agendar una cita\n");
+        printf("3. Ver mis citas\n");
+        printf("4. Comunicarse con un doctor en este momento\n");
+        printf("5. Regresar\n");
+        printf("Elija una opcion: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+
             printf("//////////////////////////////////////\n");
-            printf("1. Ingresar a tu informacion personal\n");
-            printf("2. Agendar una cita\n");
-            printf("3. Salir\n");
-            printf("Elija una opcion: ");
-            scanf("%d", &choice);
-
-            if (choice == 1) {
-
-                printf("//////////////////////////////////////\n");
-                printf("Name: %s %s\n", users[user_index].name, users[user_index].lastname);
-                printf("Email: %s\n", users[user_index].email);
-                printf("Phone: %s\n", users[user_index].phone);
-                printf("Address: %s\n", users[user_index].address);
-                printf("Gender: %s\n", users[user_index].genderr);
-                printf("Age: %s\n", users[user_index].age);
-                printf("Blood Type: %s\n", users[user_index].blood);
-                printf("Weight: %s\n", users[user_index].weight);
-                printf("Height: %s\n", users[user_index].height);
-                printf("//////////////////////////////////////\n");
+            printf("Name: %s %s\n", users[user_index].name, users[user_index].lastname);
+            printf("Email: %s\n", users[user_index].email);
+            printf("Phone: %s\n", users[user_index].phone);
+            printf("Address: %s\n", users[user_index].address);
+            printf("Gender: %s\n", users[user_index].genderr);
+            printf("Age: %s\n", users[user_index].age);
+            printf("Blood Type: %s\n", users[user_index].blood);
+            printf("Weight: %s\n", users[user_index].weight);
+            printf("Height: %s\n", users[user_index].height);
+            printf("//////////////////////////////////////\n");
             printf("1. Regresar\n");
-            printf("2. Salir\n");
-            printf("Enter choice: ");
+            printf("Elegir una opcion: ");
             scanf("%d", &choice);
 
             } else if (choice == 2) {
                 //Aquí puedes agregar código para agendar una cita
-                printf("Agendar cita\n");
-
             } else if (choice == 3) {
+                //Aquí puedes agregar código para ver mis citas
+            } else if (choice == 4) {
+                printf("//////////////////////////////////////\n");
+                printf("Llamando a un doctor...\n");
+                printf("Por favor espere...\n");
+                printf("Lo sentimos, no hay doctores disponibles en este momento.\n");
+                printf("//////////////////////////////////////\n");
+            } else if (choice == 5) {
                 break;
-
             } else {
                 printf("Opcion no disponible.\n");
             }
         }
     }
-
 
 void registerUser() {
     char username[20];
