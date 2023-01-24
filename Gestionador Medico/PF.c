@@ -277,7 +277,7 @@ void agendarCita() {
     int user_index = login();
     if (user_index != -1) {
         FILE *file = fopen("citas.txt", "a");
-        fprintf(file, "%s %s %s %s %s\n", users[user_index].username, fecha, hora, doctor, motivo);
+        fprintf(file, "%s %s %s %s %s", users[user_index].username, fecha, hora, doctor, motivo);
         fclose(file);
         printf("\nLa cita ha sido agendada exitosamente!\n");
     }

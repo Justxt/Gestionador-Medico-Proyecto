@@ -1,2 +1,4 @@
+----------
 MEDICOS DISPONIBLES
-[Dr. Jostin Mora | Dr. Jorge Rosa | Dra. Melany Rosales | Dr. Jordan Aguiar]
+[Dr. Mora | Dr. Rosa | Dra. Rosales | Dr. Aguiar]
+----------
