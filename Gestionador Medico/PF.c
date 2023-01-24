@@ -65,6 +65,9 @@ int main() {
             printf("Nuestro correo: hospital@potitos.com\n");
             printf("Nuestra direccion: Av. 9 de Octubre y Av. 10 de Agosto\n");
         } else if (choice == 4) {
+            printf("//////////////////////////////////////\n");
+            despedida();
+            printf("//////////////////////////////////////\n");
             break;
         } else {
             printf("Opcion no disponible.\n");
@@ -89,7 +92,7 @@ void bienvenida() {
 void tiempoActual() {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    printf("Fecha y Hora Actual: %02d/%02d/%d %02d:%02d:%02d\n", tm.
+    printf("FECHA Y HORA ACTUAL: %02d/%02d/%d %02d:%02d:%02d\n", tm.
     tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
 }
 void despedida() {
@@ -135,15 +138,18 @@ void showUserMenu(int user_index) {
             scanf("%d", &choice);
 
             } else if (choice == 2) {
-                //Aquí puedes agregar código para agendar una cita
+                agendarCita();
             } else if (choice == 3) {
-                //Aquí puedes agregar código para ver mis citas
+                verCitas();
             } else if (choice == 4) {
-                printf("//////////////////////////////////////\n");
-                printf("Llamando a un doctor...\n");
-                printf("Por favor espere...\n");
-                printf("Lo sentimos, no hay doctores disponibles en este momento.\n");
-                printf("//////////////////////////////////////\n");
+                int i;
+                char* texto = "Llamando a un doctor...\nPor favor espere...\nLo sentimos, no hay doctores disponibles en este momento.\nIntentelo mas tarde.\n";
+
+                for (i = 0; i < strlen(texto); i++) {
+                    printf("%c", texto[i]);
+                    fflush(stdout);
+                    usleep(90000); // espera 0.1 segundos
+                }
             } else if (choice == 5) {
                 break;
             } else {
@@ -252,4 +258,89 @@ int login() {
 
     printf("Muchos intentos fallidos. Regresando al menu.....\n");
     return -1;
+}
+
+void agendarCita() {
+    char fecha[20], hora[20], doctor[20], motivo[20];
+    leerFechas();
+    printf("\nIngrese la fecha de la cita (dd/mm/yyyy): \n");
+    scanf("%s", fecha);
+    leerHoras();
+    printf("\nIngrese la hora de la cita (hh:mm): \n");
+    scanf("%s", hora);
+    leerMedicos();
+    printf("\nSeleccione el doctor: \n");
+    scanf("%s", doctor);
+    printf("\nIngrese el motivo de la cita: \n");
+    scanf("%s", motivo);
+
+    int user_index = login();
+    if (user_index != -1) {
+        FILE *file = fopen("citas.txt", "a");
+        fprintf(file, "%s %s %s %s %s\n", users[user_index].username, fecha, hora, doctor, motivo);
+        fclose(file);
+        printf("\nLa cita ha sido agendada exitosamente!\n");
+    }
+}
+
+void verCitas() {
+    int user_index = login();
+    if (user_index != -1) {
+        char username[20], fecha[20], hora[20], doctor[20], motivo[20];
+        FILE *file = fopen("citas.txt", "r");
+        printf("\nMis citas:\n");
+        while (fscanf(file, "%s %s %s %s %s", username, fecha, hora, doctor, motivo) != EOF) {
+            if (strcmp(username, users[user_index].username) == 0) {
+                printf("\nFecha: %s\n Hora: %s\n Doctor: %s\n Motivo: %s\n", fecha, hora, doctor, motivo);
+                printf("-----\n");
+            }
+        }
+        fclose(file);
+    }
+}
+
+
+void leerHoras(){
+    FILE *file = fopen("horarios.txt", "r");
+    if (file == NULL) {
+        printf("Error al abrir el archivo!\n");
+        return;
+    }
+
+    char line[100];
+    while (fgets(line, 100, file) != NULL) {
+        printf("%s", line);
+    }
+
+    fclose(file);
+}
+
+void leerFechas(){
+    FILE *file = fopen("fechas.txt", "r");
+    if (file == NULL) {
+        printf("Error al abrir el archivo!\n");
+        return;
+    }
+
+    char line[100];
+    while (fgets(line, 100, file) != NULL) {
+        printf("%s", line);
+    }
+
+    fclose(file);
+}
+
+void leerMedicos(){
+    FILE *file = fopen("medicos.txt", "r");
+    if (file == NULL) {
+        printf("Error al abrir el archivo!\n");
+        return;
+    }
+
+    char line[100];
+    while (fgets(line, 100, file) != NULL) {
+        printf("%s", line);
+    }
+
+    fclose(file);
 }
