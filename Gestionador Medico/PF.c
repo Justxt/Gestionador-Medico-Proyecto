@@ -21,7 +21,6 @@ struct user {
 struct user users[100];
 int userCount = 0;
 
-//////////////////////////////////////////////////////////////////////////////////////////
 
 int main() {
     int choice;
@@ -64,6 +63,7 @@ int main() {
             printf("Nuestros telefonos: 025456544 - 0987456321\n");
             printf("Nuestro correo: hospital@potitos.com\n");
             printf("Nuestra direccion: Av. 9 de Octubre y Av. 10 de Agosto\n");
+            printf("//////////////////////////////////////\n");
         } else if (choice == 4) {
             printf("//////////////////////////////////////\n");
             despedida();
@@ -76,7 +76,6 @@ int main() {
     return 0;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////
 
 void bienvenida() {
     int i;
@@ -85,7 +84,7 @@ void bienvenida() {
     for (i = 0; i < strlen(texto); i++) {
         printf("%c", texto[i]);
         fflush(stdout);
-        usleep(90000); // espera 0.1 segundos
+        usleep(90000); 
     }
     printf("\n");
 }
@@ -102,7 +101,7 @@ void despedida() {
     for (i = 0; i < strlen(texto); i++) {
         printf("%c", texto[i]);
         fflush(stdout);
-        usleep(10000); // espera 0.1 segundos
+        usleep(10000);
     }
     printf("\n");
 }
@@ -298,7 +297,6 @@ void verCitas() {
         fclose(file);
     }
 }
-
 
 void leerHoras(){
     FILE *file = fopen("horarios.txt", "r");
